@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openspin-noise"
+version = "0.1.0"
+description = "Fast correlated (temporal & spatial) charge/qubit noise generator for spin-qubit simulation"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "OpenSpin" }]
+dependencies = [
+    "numpy>=1.24",
+]
+
+[project.optional-dependencies]
+numba = ["numba>=0.58"]
+jax = ["jax>=0.4", "jaxlib>=0.4"]
+scipy = ["scipy>=1.10"]
+viz = ["matplotlib>=3.6"]
+xarray = ["xarray>=2023.1"]
+dev = ["pytest>=7.0", "matplotlib>=3.6"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["openspin*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
