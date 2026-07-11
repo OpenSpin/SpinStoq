@@ -1,4 +1,4 @@
-# openspin.noise
+# SpinStoq
 
 **Fast correlated (temporal & spatial) charge/qubit noise generator for spin-qubit simulation.**
 
@@ -19,7 +19,7 @@ pip install openspin-noise[viz]     # matplotlib for the Skill plots
 ### 1. By name: 1/f noise
 
 ```python
-from openspin.noise import generate
+from src.noise import generate
 
 res = generate(
     "1/f",
@@ -38,7 +38,7 @@ res.fs, res.spec, res.seed, res.units
 ### 2. OU-sum (physically-motivated 1/f)
 
 ```python
-from openspin.noise import generate
+from src.noise import generate
 
 res = generate(
     "ou_sum",
@@ -57,7 +57,7 @@ res = generate(
 
 ```python
 import numpy as np
-from openspin.noise import calibrate
+from src.noise import calibrate
 
 # trace: 1D array (n_time,) or 2D (n_channels, n_time) from your experiment
 trace = np.load("my_charge_sensor_trace.npy")
@@ -68,7 +68,7 @@ res = gen.sample(n_traj=1000, n_points=2**16, seed=0)
 ## Generate a figure
 
 ```python
-from openspin.noise import generate, welch
+from src.noise import generate, welch
 import matplotlib.pyplot as plt
 
 res = generate("1/f", n_traj=200, fs=1e4, n_points=2**14,
@@ -89,7 +89,7 @@ fig.savefig("openspin_noise_demo.png", dpi=120)
 ## Named processes (registry)
 
 ```python
-from openspin.noise import list_processes
+from src.noise import list_processes
 print(list_processes())
 # ['1/f', 'charge_noise_SiGe', 'charge_noise_SiMOS', 'ou', 'ou_sum',
 #  'ou_sum_default', 'rtn', 'rtn_dominated', 'spatial_fluctuators']
@@ -120,7 +120,7 @@ Cowork Skills under `skills/`:
 | `noise-crossspectrum` | `coherence` | Cross-spectrum, coherence γ²(f), phase |
 
 ```python
-from openspin.noise import generate, welch, allan_deviation
+from src.noise import generate, welch, allan_deviation
 
 res = generate("1/f", n_traj=100, fs=1e4, n_points=2**14, seed=0)
 f, S = welch(res.traj, fs=res.fs)

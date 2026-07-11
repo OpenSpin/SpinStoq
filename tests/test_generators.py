@@ -14,14 +14,14 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from openspin.noise import (
+from src.noise import (
     generate, NoiseResult, list_backends, welch, autocorrelation,
 )
-from openspin.noise.generators import (
+from src.noise.generators import (
     timmer_koenig, generate_ou, generate_ou_sum, generate_rtn,
     generate_spatial_separable, generate_spatial_fluctuators, compose,
 )
-from openspin.noise.analysis import coherence
+from src.noise.analysis import coherence
 
 # Statistical tolerances (duplicated from conftest to avoid a `tests` package
 # name collision with site-packages on some installs).

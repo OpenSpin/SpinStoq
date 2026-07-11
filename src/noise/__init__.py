@@ -1,8 +1,8 @@
-"""openspin.noise — fast correlated (temporal & spatial) charge/qubit noise generator.
+"""src.noise — fast correlated (temporal & spatial) charge/qubit noise generator.
 
 Public API (spec §4):
 
-    from openspin.noise import generate, calibrate, NoiseResult
+    from src.noise import generate, calibrate, NoiseResult
 
     # by name
     res = generate("1/f", n_traj=1000, fs=1e4, n_points=2**16,

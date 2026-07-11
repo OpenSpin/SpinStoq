@@ -22,8 +22,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import numpy as np
 
-from openspin.noise import generate, welch, autocorrelation, allan_deviation
-from openspin.noise.analysis import cross_correlation, coherence
+from src.noise import generate, welch, autocorrelation, allan_deviation
+from src.noise.analysis import cross_correlation, coherence
 
 
 def _time(fn, *args, **kw):
@@ -72,7 +72,7 @@ def bench_analysis():
 
 def bench_ou_backends():
     """OU recursion: numpy vs numba, 10^3 traj x 10^5 pts."""
-    from openspin.noise import list_backends
+    from src.noise import list_backends
     for backend in ["numpy"]:
         t, _ = _time(generate, "ou", n_traj=1000, fs=1e4, n_points=100_000,
                      gamma=10.0, sigma=1.0, seed=0, backend=backend)

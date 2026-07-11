@@ -10,8 +10,8 @@ from __future__ import annotations
 import numpy as np
 import pytest
 
-from openspin.noise import generate, calibrate, welch, autocorrelation, allan_deviation
-from openspin.noise.analysis import cross_correlation, coherence
+from src.noise import generate, calibrate, welch, autocorrelation, allan_deviation
+from src.noise.analysis import cross_correlation, coherence
 
 # Statistical tolerances (duplicated from conftest to avoid a `tests` package
 # name collision with site-packages on some installs).
@@ -56,7 +56,7 @@ class TestCalibrateMultiChannel:
         """Multi-channel surrogate preserves inter-channel coherence."""
         # build a 2-channel trace with known coherence via spatial separable
         K = np.array([[1.0, 0.7], [0.7, 1.0]])
-        from openspin.noise.generators import generate_spatial_separable
+        from src.noise.generators import generate_spatial_separable
         src = generate_spatial_separable(K, n_traj=1, fs=1e4, n_points=2**12,
                                          temporal="1/f", alpha=1.0, S0=1.0,
                                          f0=1.0, f_min=1.0, seed=42)
