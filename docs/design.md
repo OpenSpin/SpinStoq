@@ -1,4 +1,4 @@
-# Design Principles
+s# Design Principles
 
 ## Core Philosophy
 

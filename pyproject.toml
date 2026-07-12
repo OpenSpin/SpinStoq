@@ -12,6 +12,7 @@ license = { text = "MIT" }
 authors = [{ name = "OpenSpin" }]
 dependencies = [
     "numpy>=1.24",
+    "spinspectro",
 ]
 
 [project.optional-dependencies]

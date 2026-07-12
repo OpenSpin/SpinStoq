@@ -7,6 +7,8 @@ NumPy-first, FFT/`O(N log N)` where possible, no Python-level per-sample loops o
 ## Install
 
 ```bash
+# spinspectro isn't on PyPI yet — install it from the sibling SpinSkills repo first
+pip install -e ../SpinSkills/SpinSkills/spinspectro
 pip install -e .
 # optional acceleration backends
 pip install openspin-noise[numba]   # JIT-compiled OU recursion
@@ -106,18 +108,14 @@ print(list_processes())
 | `charge_noise_SiMOS` | preset | Literature-ish SiMOS 1/f charge noise |
 | `rtn_dominated` | preset | RTN-dominated noise |
 
-## Analysis (library + Cowork Skills)
+## Analysis (via the `spinspectro` Skill)
 
-The analysis functions live in `openspin.noise.analysis` and are wrapped as
-Cowork Skills under `skills/`:
-
-| Skill | Function | Description |
-|-------|----------|-------------|
-| `noise-spectrum` | `welch`, `periodogram`, `multitaper` | One-sided PSD |
-| `noise-allan` | `allan_deviation` | Overlapping Allan deviation σ_A(τ) |
-| `noise-autocorrelation` | `autocorrelation` | ACF via FFT (Wiener-Khinchin) |
-| `noise-crosscorrelation` | `cross_correlation` | Cross-correlation with lag axis |
-| `noise-crossspectrum` | `coherence` | Cross-spectrum, coherence γ²(f), phase |
+Trace characterization (PSD, ACF, Allan deviation, cross-correlation,
+cross-spectrum/coherence) is not implemented here — it lives in
+[`spinspectro`](../SpinSkills/SpinSkills/spinspectro), the shared SpinSkills
+package/Claude Skill, so results stay comparable across the OpenSpin
+community instead of drifting between per-repo copies. `generate()` and
+`calibrate()` re-export its functions for convenience:
 
 ```python
 from src.noise import generate, welch, allan_deviation
@@ -127,10 +125,14 @@ f, S = welch(res.traj, fs=res.fs)
 taus, sigma = allan_deviation(res.traj, fs=res.fs)
 ```
 
-Or from the command line (Skill):
+Or call it directly (same functions, plus file I/O and plotting — see
+[spinspectro's SKILL.md](../SpinSkills/SpinSkills/spinspectro/SKILL.md)):
 
-```bash
-python skills/noise-spectrum/run.py trace.npy --fs 1e4 --method welch --output outputs
+```python
+from spinspectro import compute_spectrum, compute_allan
+
+f, S = compute_spectrum("trace.npy", fs=1e4, method="welch")
+taus, sigma = compute_allan("trace.npy", fs=1e4)
 ```
 
 ## Design principles

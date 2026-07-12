@@ -23,7 +23,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import numpy as np
 
 from src.noise import generate, welch, autocorrelation, allan_deviation
-from src.noise.analysis import cross_correlation, coherence
+from spinspectro.characterize import cross_correlation, coherence
 
 
 def _time(fn, *args, **kw):

@@ -1,0 +1,35 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Packaging / build artifacts
+*.egg-info/
+UNKNOWN.egg-info/
+build/
+dist/
+*.egg
+pip-wheel-metadata/
+
+# Editable-install / venv
+.eggs/
+.venv/
+venv/
+env/
+
+# Generated example/plot output
+# (figures committed on purpose live in docs/figures/ — see negation below)
+*.png
+outputs/
+!docs/figures/*.png
+
+# Notebooks
+.ipynb_checkpoints/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
