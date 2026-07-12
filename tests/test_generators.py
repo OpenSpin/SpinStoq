@@ -21,7 +21,7 @@ from src.noise.generators import (
     timmer_koenig, generate_ou, generate_ou_sum, generate_rtn,
     generate_spatial_separable, generate_spatial_fluctuators, compose,
 )
-from src.noise.analysis import coherence
+from spinspectro.characterize import coherence
 
 # Statistical tolerances (duplicated from conftest to avoid a `tests` package
 # name collision with site-packages on some installs).

@@ -3,8 +3,8 @@
 ``calibrate(trace, fs, method="circulant")`` returns a :class:`SurrogateGenerator`:
 
 1. **Estimate** the target second-order statistics from the trace: one-sided PSD
-   (Welch, :mod:`openspin.noise.analysis.psd`) and/or ACF (Wiener-Khinchin,
-   :mod:`openspin.noise.analysis.acf`). Handle detrending, windowing, and
+   (Welch, :mod:`spinspectro.characterize.psd`) and/or ACF (Wiener-Khinchin,
+   :mod:`spinspectro.characterize.acf`). Handle detrending, windowing, and
    (optionally) a robust log-log fit only for *reporting* ``alpha`` — generation
    stays model-free.
 2. **Resynthesize** surrogate trajectories that reproduce those statistics via
@@ -26,7 +26,7 @@ from typing import Optional, Tuple, Union
 import numpy as np
 
 from .core import NoiseResult, make_generator, make_time_grid
-from .analysis import welch, autocorrelation, cross_spectrum
+from spinspectro.characterize import welch, autocorrelation, cross_spectrum
 from .generators.spectral import circulant_embedding
 
 __all__ = ["calibrate", "SurrogateGenerator"]
@@ -69,8 +69,11 @@ class SurrogateGenerator:
         if trace.ndim == 1:
             self._fit_single(trace)
         elif trace.ndim == 2:
-            # interpret as (n_channels, n_time) — a single multi-channel recording
-            self._fit_multichannel(trace)
+            # (n_channels, n_time): route single-channel to _fit_single
+            if trace.shape[0] == 1:
+                self._fit_single(trace[0])
+            else:
+                self._fit_multichannel(trace)
         elif trace.ndim == 3:
             # (n_traj, n_channels, n_time) — average the estimate over trajectories
             n_traj, n_ch, n_time = trace.shape

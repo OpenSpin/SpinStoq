@@ -38,7 +38,7 @@ from .generators import (
     generate_rtn, generate_rtn_ensemble,
     compose, add_drift, add_quasistatic, add_white,
 )
-from .analysis import (
+from spinspectro.characterize import (
     welch, periodogram, multitaper, psd,
     autocorrelation, acf,
     allan_variance, allan_deviation, allan,

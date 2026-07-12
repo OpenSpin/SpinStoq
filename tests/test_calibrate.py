@@ -11,7 +11,7 @@ import numpy as np
 import pytest
 
 from src.noise import generate, calibrate, welch, autocorrelation, allan_deviation
-from src.noise.analysis import cross_correlation, coherence
+from spinspectro.characterize import cross_correlation, coherence
 
 # Statistical tolerances (duplicated from conftest to avoid a `tests` package
 # name collision with site-packages on some installs).
